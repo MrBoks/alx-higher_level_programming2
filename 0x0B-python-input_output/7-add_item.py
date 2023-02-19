@@ -1,10 +1,18 @@
 #!/usr/bin/python3
-import json
+"""
+ save items to a file.
+"""
 
+import sys
+import os.path
 
-def save_to_json_file(my_obj, filename):
-    """Function that writes an Object to a text file,
-    using a JSON representation"""
+args = sys.argv[1:]
 
-    with open(filename, 'w', encoding='utf-8') as f:
-        f.write(json.dumps(my_obj))
+save_to_json_file = __import__('5-save_to_json_file').save_to_json_file
+load_from_json_file = __import__('6-load_from_json_file').load_from_json_file
+
+item = []
+if os.path.exists("./add_item.json"):
+    item = load_from_json_file("add_item.json")
+
+save_to_json_file(item + args, "add_item.json")
